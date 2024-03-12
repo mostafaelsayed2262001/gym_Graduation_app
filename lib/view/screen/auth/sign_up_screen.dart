@@ -19,7 +19,7 @@ class SignUpScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             welcomeStaticSignUp(),
-            inputFieldsSignUpWidget(),
+            InputFieldsSignUpWidget(),
             buttonsUpgnInWidget(),
 
           ],
