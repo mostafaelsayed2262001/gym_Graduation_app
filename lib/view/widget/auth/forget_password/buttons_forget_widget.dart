@@ -1,13 +1,16 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gym/routes/routes.dart';
 import 'package:gym/view/screen/auth/sign_up_screen.dart';
+import 'package:gym/view_model/cubit/auth_cubit/auth_cubit.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../../utils/themes.dart';
 import '../../text_utiles.dart';
 
-Widget buttonsForgetWidget() {
+Widget buttonsForgetWidget(context) {
   return Column(
     children: [
 
@@ -15,8 +18,11 @@ Widget buttonsForgetWidget() {
         height: 3.h,
       ),
       InkWell(
-        onTap: () {
-          Get.toNamed(AppRoutes.restPasswordScreen);
+        onTap: () async{
+          if (AuthCubit.get(context).keyForgetAuth.currentState!.validate()) {
+            await AuthCubit.get(context).forgetPass(context);
+          }
+
         },
         child: Container(
             decoration: BoxDecoration(

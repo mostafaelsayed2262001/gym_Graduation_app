@@ -3,7 +3,7 @@ String validationEmail =
 
 String validationName = r'^[a-z A-Z]+$';
 
-String baseUrl = 'https://fakestoreapi.com';
+String baseUrl = 'https://gym-management-system-4dg0.onrender.com';
 String arabic = 'Arabic 🇸🇦';
 String english = 'English 🏴󠁧󠁢󠁥󠁮󠁧󠁿';
 String france = 'France 🇫🇷';

@@ -30,7 +30,7 @@ class TextFormFieldWidget extends StatelessWidget {
 
       child: TextFormField(
         controller: controller,
-        
+
         validator: validator,
         style: GoogleFonts.inter(color: Colors.black),
         textInputAction: TextInputAction.done,

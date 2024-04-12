@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gym/routes/routes.dart';
 import 'package:gym/view/screen/auth/sign_up_screen.dart';
+import 'package:gym/view/screen/home_screen/home_screen.dart';
+import 'package:gym/view_model/cubit/auth_cubit/auth_cubit.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../../utils/themes.dart';
 import '../../text_utiles.dart';
 
-Widget buttonsSignInWidget(){
+Widget buttonsSignInWidget(context){
   return Column(children: [Container(
       padding: EdgeInsetsDirectional.symmetric(vertical: 10),
       alignment: AlignmentDirectional.centerEnd,
@@ -24,7 +26,12 @@ Widget buttonsSignInWidget(){
       height: 3.h,
     ),
     InkWell(
-      onTap: () {},
+      onTap: () async{
+        if (AuthCubit.get(context).keyAuth.currentState!.validate()) {
+          await AuthCubit.get(context).login(context);
+        }
+
+      },
       child: Container(
           decoration: BoxDecoration(
               color: mainColor,
@@ -50,9 +57,8 @@ Widget buttonsSignInWidget(){
         ),
         InkWell(
 
-            onTap: () {
+            onTap: () {Get.toNamed(AppRoutes.signUpScreen);
 
-              Get.toNamed(AppRoutes.signUpScreen);
             },
             child: const TextUtils(
               text: " Sign Up",

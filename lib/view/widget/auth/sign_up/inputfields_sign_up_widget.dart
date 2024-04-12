@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gym/utils/themes.dart';
+import 'package:gym/view_model/cubit/auth_cubit/auth_cubit.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../text_field.dart';
@@ -18,6 +19,7 @@ class InputFieldsSignUpWidget extends StatefulWidget {
 }
 
 class _InputFieldsSignUpWidgetState extends State<InputFieldsSignUpWidget> {
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -60,8 +62,8 @@ class _InputFieldsSignUpWidgetState extends State<InputFieldsSignUpWidget> {
                  Radio(
                    activeColor: mainColor,
 
-                  value: 0,
-                  groupValue: 0,
+                  value: AuthCubit.get(context).gender[0],
+                  groupValue: AuthCubit.get(context).gender[0],
                   onChanged: (n){
 
                   },
@@ -73,8 +75,10 @@ class _InputFieldsSignUpWidgetState extends State<InputFieldsSignUpWidget> {
                  Radio(
                    activeColor: mainColor,
                   value: 1,
-                  groupValue: 0,
-                  onChanged: (n){},
+                  groupValue: AuthCubit.get(context).gender[1],
+                  onChanged: (n){
+
+                  },
                 ),
                  Text(
                   'female',
