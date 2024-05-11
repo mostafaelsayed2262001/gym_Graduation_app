@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gym/routes/routes.dart';
 import 'package:gym/utils/themes.dart';
+import 'package:gym/view/screen/conact_us_screen/contact_us.dart';
+import 'package:gym/view/screen/gymnastics/gymnastics_screen.dart';
 
 import 'package:gym/view/screen/member_ship_screen/member_ship.dart';
 import 'package:gym/view/screen/profile_screen/profile_screen.dart';
@@ -44,18 +46,22 @@ Widget appDrawer() {
         ),
         listTileDrawer(Image.asset("assets/menu/lockIcon.png"), "Gymnastics", () {
           Get.back();
+          Get.to(()=>GymnasticScreen());
         }),
         Divider(
           color: Colors.black,
         ),
         listTileDrawer(Image.asset("assets/menu/amazonPay.png"), "Payment", () {
+
           Get.back();
+          Get.toNamed(Routes.paymentScreen);
         }),
         Divider(
           color: Colors.black,
         ),
         listTileDrawer(Icon(Icons.phone, color: mainColor), "Contact Us", () {
           Get.back();
+          Get.to(()=>ContactUsScreen());
         }),
         Divider(
           color: Colors.black,

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gym/utils/themes.dart';
 import 'package:gym/view_model/cubit/auth_cubit/auth_cubit.dart';
 import 'package:sizer/sizer.dart';
@@ -7,22 +8,13 @@ import 'package:sizer/sizer.dart';
 import '../../text_field.dart';
 import '../../text_utiles.dart';
 
-enum SingingCharacter { male, female }
-
-
-
-class InputFieldsSignUpWidget extends StatefulWidget {
-  const InputFieldsSignUpWidget({Key? key}) : super(key: key);
-
-  @override
-  State<InputFieldsSignUpWidget> createState() => _InputFieldsSignUpWidgetState();
-}
-
-class _InputFieldsSignUpWidgetState extends State<InputFieldsSignUpWidget> {
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
+//
+Widget inputFieldsSignUpWidget(context) {
+  return Form(
+    key: AuthCubit
+        .get(context)
+        .keySignUpAuth,
+    child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
@@ -35,7 +27,14 @@ class _InputFieldsSignUpWidgetState extends State<InputFieldsSignUpWidget> {
           ),
         ),
         TextFormFieldWidget(
-            hintText: "enter your name", controller: TextEditingController()),
+            hintText: "enter your name",
+            controller: AuthCubit
+                .get(context)
+                .ctrlName,
+            validator: (val) {
+              if (val!.length < 6) return "enter full name";
+
+            }),
         SizedBox(
           height: 3.h,
         ),
@@ -49,46 +48,64 @@ class _InputFieldsSignUpWidgetState extends State<InputFieldsSignUpWidget> {
           ),
         ),
         TextFormFieldWidget(
-            hintText: "enter your Age", controller: TextEditingController()),
+            hintText: "enter your Age",
+            controller: AuthCubit
+                .get(context)
+                .ctrlAge,
+            validator: (val) {
+              if (int.parse(val!) != int) {
+                "enter num";
+              }
+            }),
         Container(
             padding: EdgeInsets.symmetric(vertical: 15),
-            child: Row(
-              children: <Widget>[
-                TextUtils(
-                  text: "Gender",
-                  fontSize: 14.sp,
-                  color: Colors.black,
-                ),
-                 Radio(
-                   activeColor: mainColor,
+            child: BlocConsumer<AuthCubit, AuthState>(
+                listener: (BuildContext context, state) {},
+                builder: (context, state) {
+                  int genderSelection = 0;
+                  return Row(
+                    children: <Widget>[
+                      TextUtils(
+                        text: "Gender",
+                        fontSize: 14.sp,
+                        color: Colors.black,
+                      ),
+                      Radio(
+                        activeColor: mainColor,
+                        value: 0,
+                        groupValue: AuthCubit
+                            .get(context)
+                            .genderSelection,
+                        onChanged: (n) {
+                          AuthCubit.get(context).onSwape(n);
+                          print(n);
+                        },
+                      ),
+                      Text(
+                        'male',
+                        style: new TextStyle(fontSize: 16.0),
+                      ),
+                      Radio(
+                        activeColor: mainColor,
+                        value: 1,
+                        groupValue: AuthCubit
+                            .get(context)
+                            .genderSelection,
+                        onChanged: (n) {
+                          AuthCubit.get(context).onSwape(n);
 
-                  value: AuthCubit.get(context).gender[0],
-                  groupValue: AuthCubit.get(context).gender[0],
-                  onChanged: (n){
-
-                  },
-                ),
-                 Text(
-                  'male',
-                  style: new TextStyle(fontSize: 16.0),
-                ),
-                 Radio(
-                   activeColor: mainColor,
-                  value: 1,
-                  groupValue: AuthCubit.get(context).gender[1],
-                  onChanged: (n){
-
-                  },
-                ),
-                 Text(
-                  'female',
-                  style: new TextStyle(
-                    fontSize: 16.0,
-                  ),
-                ),
-              ],
-            )
-        ),
+                          print(n);
+                        },
+                      ),
+                      Text(
+                        'female',
+                        style: new TextStyle(
+                          fontSize: 16.0,
+                        ),
+                      ),
+                    ],
+                  );
+                })),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 10),
           child: TextUtils(
@@ -99,8 +116,19 @@ class _InputFieldsSignUpWidgetState extends State<InputFieldsSignUpWidget> {
           ),
         ),
         Container(
-          child: TextFormFieldWidget(prefix: "0",
-              hintText: "enter your number", controller: TextEditingController()),
+          child: TextFormFieldWidget(
+              prefix: "0",
+              hintText: "enter your number",
+              validator: (val) {
+                if (int.parse(val!) == int) {
+                  if (val.length != 11) {
+                    return "enter 11 num";
+                  }
+                }
+              },
+              controller: AuthCubit
+                  .get(context)
+                  .ctrlNum),
         ),
         SizedBox(
           height: 3.h,
@@ -115,7 +143,19 @@ class _InputFieldsSignUpWidgetState extends State<InputFieldsSignUpWidget> {
           ),
         ),
         TextFormFieldWidget(
-            hintText: "enter your email", controller: TextEditingController()),
+            hintText: "enter your email",
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter your email';
+              }
+              if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
+                return 'Enter a valid email address';
+              }
+              return null;
+            },
+            controller: AuthCubit
+                .get(context)
+                .ctrlEmail),
         SizedBox(
           height: 3.h,
         ),
@@ -129,7 +169,17 @@ class _InputFieldsSignUpWidgetState extends State<InputFieldsSignUpWidget> {
           ),
         ),
         TextFormFieldWidget(
-            hintText: "enter your password",islock: true , controller: TextEditingController()),
+            hintText: "enter your password",
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter your password';
+              }
+              return null;
+            },
+            islock: true,
+            controller: AuthCubit
+                .get(context)
+                .ctrlPassword),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 10),
           child: TextUtils(
@@ -141,7 +191,15 @@ class _InputFieldsSignUpWidgetState extends State<InputFieldsSignUpWidget> {
         ),
         Container(
           child: TextFormFieldWidget(
-              hintText: "enter your height", controller: TextEditingController()),
+              hintText: "enter your height",
+              validator: (val) {
+                if (int.parse(val!) != int) {
+                  "enter num between 0 to 250 cm";
+                }
+              },
+              controller: AuthCubit
+                  .get(context)
+                  .ctrlHeight),
         ),
         SizedBox(
           height: 3.h,
@@ -157,12 +215,20 @@ class _InputFieldsSignUpWidgetState extends State<InputFieldsSignUpWidget> {
         ),
         Container(
           child: TextFormFieldWidget(
-              hintText: "enter your weight", controller: TextEditingController()),
+              hintText: "enter your weight",
+              validator: (val) {
+                if (int.parse(val!) != int) {
+                  "enter num";
+                }
+              },
+              controller: AuthCubit
+                  .get(context)
+                  .ctrlWeight),
         ),
         SizedBox(
           height: 3.h,
         ),
       ],
-    );
-  }
+    ),
+  );
 }

@@ -46,6 +46,9 @@ dependencies:
   flutter_bloc: ^8.1.5
   bloc: ^8.1.4
   loading_indicator: ^3.1.1
+  url_launcher: ^6.2.4
+  dropdown_button2: ^2.3.9
+  expandable: ^5.0.1
 
 flutter_native_splash:
 
@@ -86,6 +89,7 @@ flutter:
     - assets/auth/
     - assets/memberShip/
     - assets/profile/
+    - assets/diet/
 
 
   # An image assets can refer to one or more resolution-specific "variants", see

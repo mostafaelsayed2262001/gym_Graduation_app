@@ -25,10 +25,10 @@ class RestPasswordScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              welcomeStaticRestPassword(),
+              welcomeStaticRestPassword(context),
               RoundedWithShadow(),
-              inputFieldsrestForgetWidget(),
-              buttonRestWidget(),
+              inputFieldsrestForgetWidget(context),
+              buttonRestWidget(context),
 
             ],
           ),

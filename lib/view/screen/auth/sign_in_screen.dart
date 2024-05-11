@@ -17,23 +17,27 @@ class SignInScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AuthCubit();
     return Scaffold(
-      body: SingleChildScrollView(
-        child:BlocConsumer<AuthCubit, AuthState>(
-          listener: (BuildContext context,  state) {  },
-          builder: (context,state) {
-            return Container(
-              padding: EdgeInsetsDirectional.symmetric(horizontal: 10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  welcomeStaticSignIn(),
-                  inputFieldsSignInWidget(context),
-                  buttonsSignInWidget(context),
-                ],
-              ),
-            );
-          },
+      body: Form(
+        key: AuthCubit.get(context).keyAuth,
+        child: SingleChildScrollView(
+          child:BlocConsumer<AuthCubit, AuthState>(
+            listener: (BuildContext context,  state) {  },
+            builder: (context,state) {
+              return Container(
+                padding: EdgeInsetsDirectional.symmetric(horizontal: 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    welcomeStaticSignIn(),
+                    inputFieldsSignInWidget(context),
+                    buttonsSignInWidget(context),
+                  ],
+                ),
+              );
+            },
+          ),
         ),
       ),
     );

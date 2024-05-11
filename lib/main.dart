@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:gym/observer.dart';
 import 'package:gym/routes/routes.dart';
+import 'package:gym/view_model/cubit/ai_cubit/ai_cubit.dart';
 import 'package:gym/view_model/cubit/auth_cubit/auth_cubit.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sizer/sizer.dart';
@@ -17,7 +18,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(create: ((context) =>AuthCubit()),
+    return MultiBlocProvider(providers: [
+
+      BlocProvider(create: ((context) =>AuthCubit())),
+      BlocProvider(create: ((context) =>AICubit())),
+    ],
       child: Sizer(
         builder: (context, orientation, deviceType) {
           return GetMaterialApp(

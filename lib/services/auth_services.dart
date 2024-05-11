@@ -13,7 +13,7 @@ class AuthenticationServices {
     try {
       var response = await client.post(
           Uri.parse(
-              'https://gym-management-system-4dg0.onrender.com/api/users/auth/login'),
+              '$baseUrl/api/users/auth/login'),
           body: jsonEncode(
             {"email": user, "password": password},
           ),
@@ -24,43 +24,96 @@ class AuthenticationServices {
 
       return responseJson['data']['token'];
     } catch (e) {
+      print(e);
       return 'false';
     }
   }
 
-  Future<String> postRegist(
-      {required String user, required String password}) async {
+  Future<String> postverify(
+      {required String user, required String code}) async {
     try {
       var response = await client.post(
           Uri.parse(
-              'https://gym-management-system-4dg0.onrender.com/api/users/auth/login'),
+              '$baseUrl/api/users/auth/email-verification'),
+          body: jsonEncode(
+            {"email": user, "code": code},
+          ),
+          headers: {"content-type": "application/json; charset=utf-8"});
+
+      var responseJson = jsonDecode(response.body);
+      print(response.statusCode);
+
+      return responseJson['statusCode'].toString();
+    } catch (e) {
+      print(e);
+      return 'false';
+    }
+  }
+
+  Future<int> postForget({
+    required String user,
+  }) async {
+    try {
+      var response = await client.post(
+          Uri.parse(
+              '$baseUrl/api/users/auth/forgot-password'),
           body: jsonEncode(
             {
-              "fullName": "mostafa elsayed",
-              "email": "devmostafasoliman@gmail.com",
-              "age": 23,
-              "password": "123456",
-              "gender": "male",
-              "weight": 80,
-              "height": 182,
-              "phone": "01000000000"
+              "email": user,
             },
           ),
           headers: {"content-type": "application/json; charset=utf-8"});
 
       var responseJson = jsonDecode(response.body);
-      print(responseJson['status']);
-
-      return responseJson['data'];
+      print(response.statusCode);
+      return response.statusCode;
     } catch (e) {
-      return 'false';
+      print(e);
+      return 0;
+    }
+  }
+
+//finished
+  Future postRegist({
+    required String name,
+    required String email,
+    required int age,
+    required int weight,
+    required int height,
+    required String phone,
+    required String password,
+    required String gender,
+  }) async {
+    try {
+      var response = await client.post(
+          Uri.parse(
+              '$baseUrl/api/users/auth/register'),
+          body: jsonEncode(
+            {
+              "fullName": name,
+              "email": email,
+              "age": age,
+              "password": password,
+              "gender": gender,
+              "weight": weight,
+              "height": height,
+              "phone": phone
+            },
+          ),
+          headers: {"content-type": "application/json; charset=utf-8"});
+
+      var responseJson = jsonDecode(response.body);
+
+      return responseJson['status'];
+    } catch (e) {
+      return 'false ';
     }
   }
 
   postLogout(token) async {
     var response = await http.delete(
         Uri.parse(
-            'https://gym-management-system-4dg0.onrender.com/api/users/auth/logout'),
+            '$baseUrl/api/users/auth/logout'),
         headers: {
           "content-type": "application/json",
           'Authorization': 'Bearer $token',
@@ -70,44 +123,15 @@ class AuthenticationServices {
     return response.statusCode;
   }
 
-  //forget will send email - done
-  postForget({required String email}) async {
-    print(email);
-    var response = await http.post(
-      Uri.parse(
-        baseUrl + '/api/users/auth/password-reset',
-      ),
-      headers: {
-        "content-type": "application/json",
-      },
-      body: jsonEncode(
-        {"email": "$email"},
-      ),
-    );
-    var responseJson = jsonDecode(response.body);
-    print(response.statusCode);
-    return responseJson;
-  }
-
 //reset password will send code and check if true or false
-  postReset({required String code, required String password}) async {
+  postReset({required String code, required String password,required String email}) async {
     var response = await client.post(
-        Uri.parse(baseUrl + '/api/users/auth/password-reset'),
-        body: jsonEncode({"code": code, "password": password}),
+        Uri.parse(baseUrl + '/api/users/auth/reset-password'),
+        body: jsonEncode({"email": email,"code": code, "newPassword": password,}),
         headers: {"content-type": "application/json; charset=utf-8"});
-    var responseJson = jsonDecode(response.body);
+    print(response.body);
 
-    return responseJson;
-  }
-
-  postVerify({required String code, required String email}) async {
-    var response = await client.post(
-        Uri.parse(baseUrl + '/api/users/auth/email-verification'),
-        body: jsonEncode({"code": code, "email": email}),
-        headers: {"content-type": "application/json; charset=utf-8"});
-    var responseJson = jsonDecode(response.body);
-
-    return responseJson;
+    return response.statusCode;
   }
 
 //done
@@ -118,7 +142,7 @@ class AuthenticationServices {
       'Authorization': 'Bearer $token',
     });
     var responseJson = jsonDecode(response.body);
+
     return response.statusCode == 200 ? responseJson : response.statusCode;
   }
-  
 }

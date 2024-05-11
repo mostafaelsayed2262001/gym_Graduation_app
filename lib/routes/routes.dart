@@ -7,6 +7,7 @@ import 'package:gym/view/screen/auth/sign_up_screen.dart';
 import 'package:gym/view/screen/auth/verify_screen.dart';
 import 'package:gym/view/screen/home_screen/home_screen.dart';
 import 'package:gym/view/screen/main_screens/board_screen.dart';
+import 'package:gym/view/screen/payment_screen/payment_screen.dart';
 
 class AppRoutes {
   //intinalRoute
@@ -19,6 +20,7 @@ class AppRoutes {
   static const homeScreen = Routes.homeScreen;
   static const memberShipdcreen = Routes.memberShipScreen;
   static const aboutUsScreen = Routes.aboutUsScreen;
+  static const paymentScreen = Routes.paymentScreen;
 
   //getPage
 
@@ -54,6 +56,9 @@ class AppRoutes {
     GetPage(
         name: aboutUsScreen,
         page: () => AboutScreen(),
+        transition: Transition.leftToRight),GetPage(
+        name: paymentScreen,
+        page: () => PaymentScreen(),
         transition: Transition.leftToRight),
   ];
 }
@@ -71,4 +76,5 @@ class Routes {
   static const homeScreen = '/homeScreen';
   static const aboutUsScreen = '/aboutUsScreen';
   static const memberShipScreen = '/memberShipScreen';
+  static const paymentScreen = '/paymentScreen';
 }

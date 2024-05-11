@@ -57,7 +57,7 @@ Widget buttonsSignInWidget(context){
         ),
         InkWell(
 
-            onTap: () {Get.toNamed(AppRoutes.signUpScreen);
+            onTap: () {Get.offAllNamed(AppRoutes.signUpScreen);
 
             },
             child: const TextUtils(

@@ -16,9 +16,9 @@ class VerifyScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              welcomeStaticVerifyWidget(),
+              welcomeStaticVerifyWidget(context),
               RoundedWithShadow(),
-              buttonVerifyWidget()
+              buttonVerifyWidget(context)
 
             ],
           )),

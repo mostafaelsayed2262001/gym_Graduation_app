@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:gym/view_model/cubit/auth_cubit/auth_cubit.dart';
 import 'package:pinput/pinput.dart';
 
 class RoundedWithShadow extends StatefulWidget {
@@ -62,7 +63,7 @@ class _RoundedWithShadowState extends State<RoundedWithShadow> {
     return Center(
       child: Pinput(
         length: 4,
-        controller: controller,
+        controller: AuthCubit.get(context).ctrlpin,
         focusNode: focusNode,
         defaultPinTheme: defaultPinTheme,
         separatorBuilder: (index) => const SizedBox(width: 16),

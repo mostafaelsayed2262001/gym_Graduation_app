@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:gym/view/screen/payment_screen/payment_details_screen.dart';
 import 'package:gym/view/widget/home/app_drawer.dart';
 import 'package:gym/view/widget/home/appbar_layout.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -25,7 +27,7 @@ class MemberShipScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Container(padding: EdgeInsetsDirectional.only(top: 2.h),child: Image.asset("assets/memberShip/basicMemShip.png")),
+                      InkWell(onTap: (){Get.to(()=>PaymentDetailsScreen());},child: Container(padding: EdgeInsetsDirectional.only(top: 2.h),child: Image.asset("assets/memberShip/basicMemShip.png"))),
                       Container(padding: EdgeInsetsDirectional.only(top: 2.h),child: Image.asset("assets/memberShip/platMemberShip.png")),
                       Container(padding: EdgeInsetsDirectional.only(top: 2.h),child: Image.asset("assets/memberShip/premMemberShip.png")),
                     ],
