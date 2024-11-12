@@ -1,16 +1,10 @@
 # gym
-
+The Gym Graduation App is a mobile application designed to help gym members track their fitness progress , manage workout plans, and monitor health data by AI. This app also integrates an authentication system to securely manage user accounts.
 A new Flutter project.
 
-## Getting Started
+Key Features:
 
-This project is a starting point for a Flutter application.
+User Registration & Login (with second authentication layer).
+Workout tracking & progress monitoring.
+Personalized workout plans.
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
